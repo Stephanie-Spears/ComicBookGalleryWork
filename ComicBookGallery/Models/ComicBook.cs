@@ -15,14 +15,15 @@ namespace ComicBookGallery.Models
         public bool Favorite { get; set; }
 
         public string DisplayText
-        {//we make this property read only by not defining a setter 
+        {//we make this property read only by not defining a setter
             get
             {
                 return SeriesTitle + " #" + IssueNumber;
             }
         }
+
         //series-title-issuenumber.jpg
-        public string CoverImageName
+        public string CoverImageFileName
         {
             get
             {

@@ -1,4 +1,5 @@
-﻿using ComicBookGallery.Models;
+﻿using ComicBookGallery.Data;
+using ComicBookGallery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +13,30 @@ namespace ComicBookGallery.Controllers
     //Controller = ComicBooks, Action = Detail
     //-> so a url that maps to /ComicBooks/Detail
     //Action Method -> Index
-    //ContentResult is an action result type provided by MVC. 
+    //ContentResult is an action result type provided by MVC.
     //RedirectResult is another action result type used to redirect a user to another url
     //alt + F12 peaks the class def
+    // Navigate to -> ctrl + comma
+    // Lightbulb -> ctrl + period
+    // End statement line -> Shift + Enter
 
     public class ComicBooksController : Controller
     {
-        public ActionResult Detail()
+        private ComicBookRepository _comicBookRepository = null;
+
+        public ComicBooksController() //constructor-> used to initialize instance members. No return type, name matches class name.
         {
-            var comicBook = new ComicBook() {
-                SeriesTitle = "The Amazing Spider-Man",
-                IssueNumber = 700,
-                DescriptionHtml = "<p>Final issue! Witness the final hours of Doctor Octopus' life and his one, last, great act of revenge! Even if Spider-Man survives... <strong>will Peter Parker?</strong></p>",
-                Artists = new Artist[]
-                {
-                    new Artist(){ Name = "Dan Slott", Role = "Script"},
-                    new Artist(){ Name = "Huberto Ramos", Role = "Pencils"},
-                    new Artist(){ Name = "Victor AOlazaba", Role = "Inks"},
-                    new Artist(){ Name = "Edgar Delgado", Role = "Colors"},
-                    new Artist(){ Name = "Chis Eliopoulos", Role = "Letters"},
-                }
-            };
+            _comicBookRepository = new ComicBookRepository();
+        }
+
+        public ActionResult Detail(int? id) //? allows for nullable values, so if there is no id argument given, the controller can still route
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var comicBook = _comicBookRepository.GetComicBook((int)id); //when using a nullable type you need to use the value property to get the underlying property. Or you can cast it.
 
             return View(comicBook);
         }
@@ -54,9 +58,43 @@ namespace ComicBookGallery.Controllers
 
 //ActionLink method is used to generate a link
 
-//RenderBody() method is used to tell MVC where we'd like to have the content from the view included. A layout page can only contain a single call to the RenderBody() method. 
+//RenderBody() method is used to tell MVC where we'd like to have the content from the view included. A layout page can only contain a single call to the RenderBody() method.
 
 //In ASP.NET MVC, layout pages specify the overall look/feel of your webstie pages without having to include the markup in each view
 
-
 //Strongly typed means the object type is known and available. We used this in views to refer to the Model object (ComicBook)-->@model Treehouse.Models.ComicBook
+
+//SOLID -> Five Design Principles:
+//Single responsibility principle
+//      a class should have only a single responsibility(i.e.changes to only one part of the software's specification should be able to affect the specification of the class).
+//Open/closed principle
+//      software entities … should be open for extension, but closed for modification.
+//Liskov substitution principle
+//      objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program." See also design by contract.
+//Interface segregation principle
+//      many client-specific interfaces are better than one general-purpose interface.
+//Dependency inversion principle
+//      one should "depend upon abstractions, [not] concretions.
+
+//naming convention for private fields is to use an underscore with a lower-start camel case
+
+// DEBUGGING -> When an error occurs during debugging and stops program execution you can hit F5 to continue the debugging process
+// Step Into and Step Over both tell the debugger to execute the next line of code, but they handle method calls differently. Step Into will execute the method call and suspend execution on the first line of code in the method. Step Over will execute the entire method and suspend execution on the next line of code after the method call.
+//When you Step Into a method call, Step Out will finish executing that method and return you to the calling method
+//public void SomeMethod()
+//{
+//    int value = 4;
+//    int result = AnotherMethod(value);
+//    ***STEP OVER will Stop here***
+//        Console.WriteLine("My result: {0}", result);
+//}
+//public int AnotherMethod(int anotherValue)
+//{
+//    ***STEP INTO will stop here****
+//        int value = 2;
+//    int result = value * anotherValue;
+//    return value;
+//}
+//Step INTO -> F11
+//Step OVER -> F10
+//Step OUT -> Shift + F11
