@@ -8,17 +8,28 @@ using System.Web.Mvc;
 
 namespace ComicBookGallery.Controllers
 {
-    //controller classes need to be public, or MVC won't be able to access them. As do action methods inside of them (Detail action method)
-    //mvc url maps to path with -> Pattern = controller/action
-    //Controller = ComicBooks, Action = Detail
-    //-> so a url that maps to /ComicBooks/Detail
-    //Action Method -> Index
-    //ContentResult is an action result type provided by MVC.
-    //RedirectResult is another action result type used to redirect a user to another url
-    //alt + F12 peaks the class def
-    // Navigate to -> ctrl + comma
-    // Lightbulb -> ctrl + period
-    // End statement line -> Shift + Enter
+    /*
+     ctrl + tab ... switch windows
+     ctrl + , ... navigate to
+     Shift + Enter ... end line with semicolon
+     ctrl + Shift + B ... build project
+     ctrl + . ... lightbulb suggestions
+     alt + F12 ... peak class definition
+
+        Debugging
+        F5 ... continue
+        F10 ... step over
+        F11 ... step into
+        Shift + F11 ... step out
+
+         */
+    /*
+     * * MVC url maps to path with: Pattern = controller/action
+     * * Controller = ComicBooks, Action = Detail -> so a url that maps to /ComicBooks/Detail
+     * * ContentResult is an action result type provided by MVC.
+     * * RedirectResult is another action result type used to redirect a user to another url
+     * * controller classes need to be public, or MVC won't be able to access them. As do action methods inside of them (Detail action method)
+    */
 
     public class ComicBooksController : Controller
     {
@@ -27,6 +38,12 @@ namespace ComicBookGallery.Controllers
         public ComicBooksController() //constructor-> used to initialize instance members. No return type, name matches class name.
         {
             _comicBookRepository = new ComicBookRepository();
+        }
+
+        public ActionResult Index() //left click View, add View...Index, Empty without Model. This adds an Index View template
+        {
+            var comicBooks = _comicBookRepository.GetComicBooks();
+            return View(comicBooks);
         }
 
         public ActionResult Detail(int? id) //? allows for nullable values, so if there is no id argument given, the controller can still route
@@ -78,23 +95,31 @@ namespace ComicBookGallery.Controllers
 
 //naming convention for private fields is to use an underscore with a lower-start camel case
 
-// DEBUGGING -> When an error occurs during debugging and stops program execution you can hit F5 to continue the debugging process
-// Step Into and Step Over both tell the debugger to execute the next line of code, but they handle method calls differently. Step Into will execute the method call and suspend execution on the first line of code in the method. Step Over will execute the entire method and suspend execution on the next line of code after the method call.
-//When you Step Into a method call, Step Out will finish executing that method and return you to the calling method
-//public void SomeMethod()
-//{
-//    int value = 4;
-//    int result = AnotherMethod(value);
-//    ***STEP OVER will Stop here***
-//        Console.WriteLine("My result: {0}", result);
-//}
-//public int AnotherMethod(int anotherValue)
-//{
-//    ***STEP INTO will stop here****
-//        int value = 2;
-//    int result = value * anotherValue;
-//    return value;
-//}
-//Step INTO -> F11
-//Step OVER -> F10
-//Step OUT -> Shift + F11
+/*
+
+ *  DEBUGGING -> When an error occurs during debugging and stops program execution you can hit F5 to continue the debugging process
+ *  Step Into and Step Over both tell the debugger to execute the next line of code, but they handle method calls differently.
+ *  Step Into will execute the method call and suspend execution on the first line of code in the method.
+ *  Step Over will execute the entire method and suspend execution on the next line of code after the method call.
+ *  When you Step Into a method call, Step Out will finish executing that method and return you to the calling method
+
+public void SomeMethod()
+{
+    int value = 4;
+    int result = AnotherMethod(value);
+    ***STEP OVER will Stop here***
+        Console.WriteLine("My result: {0}", result);
+}
+public int AnotherMethod(int anotherValue)
+{
+    ***STEP INTO will stop here****
+        int value = 2;
+    int result = value * anotherValue;
+    return value;
+}
+
+Step OVER -> F10
+Step INTO -> F11
+Step OUT -> Shift + F11
+
+*/
