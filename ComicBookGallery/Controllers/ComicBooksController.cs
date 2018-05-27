@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+/* global.asax file (application file) at file root. Contains global/application level code. Ours has just one method --> application start method. We can use this method to run any code to initialize our website. */
+
+
 namespace ComicBookGallery.Controllers
 {
     /*
@@ -15,6 +18,7 @@ namespace ComicBookGallery.Controllers
      ctrl + Shift + B ... build project
      ctrl + . ... lightbulb suggestions
      alt + F12 ... peak class definition
+     ctrl + r + r ... rename class
 
         Debugging
         F5 ... continue

@@ -1,12 +1,10 @@
-﻿@*Generated via ComicBooksControllers.cs inside Views/ComicBooks (parallel to Details.cshtml), click View->Add View->Index, Empty without Model*@
-
-@model ComicBookGallery.Models.ComicBook[]
+﻿@model ComicBookGallery.Models.ComicBook[]
 
 @{
     ViewBag.Title = "Comic Books";
 }
 
-<h2>@ViewBag.Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="row">
     @foreach (var comicBook in Model)
@@ -19,3 +17,6 @@
         </div>
     }
 </div>
+
+
+@*Generated via ComicBooksControllers.cs inside Views/ComicBooks (parallel to Details.cshtml), click View->Add View->Index, Empty without Model*@
