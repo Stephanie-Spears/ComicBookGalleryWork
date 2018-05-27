@@ -27,6 +27,17 @@
         </div>
     </div>
 
+    @if (ViewBag.ShowBackBar != null && ViewBag.ShowBackBar)
+    {
+        <div class="backbar">
+            <div class="container">
+                @*add the at symbol to escape the reserved word class, so the program knows we aren't trying to define a c# class  *@
+                @Html.ActionLink("Return to List", "Index", null, new { @class = "btn btn-default"})
+            </div>
+        </div>
+    }
+
+
     <div class="container body-content">
         @RenderBody()
         <hr />
