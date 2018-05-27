@@ -9,14 +9,21 @@
 <div class="row">
     @foreach (var comicBook in Model)
     {
-        <div class="col-md-3">
-            <h4>@Html.ActionLink(comicBook.DisplayText, "Detail", new { id = comicBook.Id })</h4>
-            <a href="@Url.Action("Detail", new {id = comicBook.Id })">
-                <img src="/Images/@comicBook.CoverImageFileName"
-                     alt="@comicBook.DisplayText"
-                     class="img-responsive" />
-            </a>
-        </div>
+        
+    <div class="col-md-3">
+        @*
+        Render a hyperlink using the Html.ActionLink method
+        For the link text, use the comicBook.DisplayText property values
+        For the action name, use the string literal Detail.
+        For the route values, instantiate an anonymous object with an id property set to the comicBook.Id property value.
+        *@
+        <h4>@Html.ActionLink(comicBook.DisplayText, "Detail", new { id = comicBook.Id })</h4>
+        <a href="@Url.Action("Detail", new {id = comicBook.Id })">
+            <img src="/Images/@comicBook.CoverImageFileName"
+                 alt="@comicBook.DisplayText"
+                 class="img-responsive" />
+        </a>
+    </div>
     }
 </div>
 
